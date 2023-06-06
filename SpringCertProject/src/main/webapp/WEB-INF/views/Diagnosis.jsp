@@ -1,0 +1,111 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<%
+request.setCharacterEncoding("utf-8");
+%>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<title>진단서 작성</title>
+<!-- Favicon-->
+<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<!-- Custom Google font-->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+	href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+	rel="stylesheet" />
+<!-- SweetAlert2 CSS -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.css">
+<!-- Bootstrap icons-->
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"
+	rel="stylesheet" />
+<!-- Core theme CSS (includes Bootstrap)-->
+<link href="resources/css/styles.css" rel="stylesheet" />
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+</head>
+<!-- Navigation-->
+<jsp:include page="nav.jsp" flush="false" />
+
+<!-- Contents -->
+<body>
+	<h1 class="container col-xl-7 text-left">
+		<span class="text-gradient d-inline fw-bolder fs-1">진단서 작성</span>
+	</h1>
+	<div class="container col-xl-7 card border-0 rounded-4">
+		<form action="doctorIn" method="post"
+			class="text-end Sans text-muted mb-4">
+			<%
+			String name = (String) session.getAttribute("name");
+			%>
+			관리자 계정: Doctor:
+			<%=name%>
+		</form>
+		<input type="hidden" id="memId" name="id" value="${member.id}"
+			class="form-control mb-3">
+		<table class="text-left DiagnosisTable">
+			<tr class="pt-5">
+				<td colspan="2" class="fs-5 Sans fw-light pb-3">환자이름/환자코드:
+					${member.name}/(${prefix})</td>
+				<td class="fs-5 Sans fw-light pb-3">Patient Code</td>
+				<td><select id="patientcode" name="patientcode"
+					class="form-control mb-3" onchange="selectCode(this.value)">
+						<option value="-">선택하세요</option>
+						<option value="1">1</option>
+						<option value="2">2</option>
+						<option value="3">3</option>
+				</select></td>
+			</tr>
+			<tr>
+				<td class="fs-5 Sans fw-light pb-3">Diagnostic</td>
+				<td colspan="3"><textarea id="Diagnostic" name="Diagnostic"
+						class="mb-3 form-control" rows="3"></textarea></td>
+			</tr>
+			<tr>
+				<td class="fs-5 Sans  fw-light pb-3">입원 날짜</td>
+				<td><input type="date" id="admission_date"
+					name="admission_date" class="form-control mb-3"></td>
+				<td class="fs-5 Sans  fw-light ps-3 pb-3">퇴원 날짜</td>
+				<td><input type="date" id="discharge_date"
+					name="discharge_date" class="form-control mb-3"></td>
+			</tr>
+			<tr>
+				<td class="fs-5 Sans fw-light pb-3">상병명</td>
+				<td><input type="text" id="disease" name="disease"
+					class="form-control mb-3"></td>
+				<td class="fs-5 Sans fw-light ps-3 pb-3">수술 날짜</td>
+				<td colspan='3'><input type="date" id="surg_date"
+					name="surg_date" class="form-control mb-3"></td>
+			</tr>
+			<tr>
+				<td class="fs-5 Sans fw-light pb-3">수술명</td>
+				<td colspan="3"><input type="text" id="operation"
+					name="operation" class="form-control mb-3"></td>
+			</tr>
+		</table>
+		<div class="row justify-content-center Sans my-4">
+			<a
+				class="btn-1 bg-gradient-primary-to-secondary btn btn-primary d-inline-block col-lg-3 p-1 fw-bolder fs-5"
+				href="javascript:digInsert('${member.id}')" onclick="sendParam()">
+				저장하기 </a>
+		</div>
+	</div>
+	<!-- Bootstrap core JS-->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+	<!-- Core theme JS-->
+	<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/sweetalert2@11.4.10/dist/sweetalert2.min.js"></script>
+	<script src="resources/js/toggleInput.js"></script>
+	<script src="resources/js/digSetParam.js"></script>
+	<script src="resources/js/ModSubBTN.js"></script>
+</body>
+</html>
